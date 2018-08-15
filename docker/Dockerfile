@@ -4,14 +4,14 @@ FROM ubuntu-debootstrap
 WORKDIR /opt/
 ADD . .
 RUN mkdir -p /var/log/supervisord/
-RUN mkdir -p fileservice/log/ 
-RUN cp -r fileservice/lib/* /usr/lib/
-RUN cp -r fileservice/include/* /usr/include/
-RUN cp fileservice/supervisord.conf /etc/supervisord.conf
+RUN mkdir -p FileMonitor/log/ 
+RUN cp -r FileMonitor/lib/* /usr/lib/
+RUN cp -r FileMointor/include/* /usr/include/
+RUN cp FileMonitor/supervisord.conf /etc/supervisord.conf
 RUN /sbin/ldconfig /usr/lib
 
 # change source list
-ADD fileservice/sources.list /etc/apt/sources.list 
+ADD FileMonitor/sources.list /etc/apt/sources.list 
 # Set TimeZone
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -19,7 +19,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #apt-get
 RUN apt-get update && apt-get install -y libboost-all-dev libssl-dev inotify-tools g++ make supervisor
 
-WORKDIR /opt/fileservice
+WORKDIR /opt/File_Monitor
 RUN make 
 
 # Entrypoint that reads the shell ENV variables as config flags
