@@ -1,0 +1,12 @@
+version: '2'
+services:
+  file_service:
+    image: docker-reg.emotibot.com.cn:55688/file_service:${SO_TAG}
+    container_name: file_service
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "13002:8080"
+    volumes:
+     - /home/deployer/devenv/modules/houta/Files:/Files
